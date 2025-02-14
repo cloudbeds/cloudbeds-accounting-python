@@ -64,7 +64,7 @@ class TestTransactionResponse(unittest.TestCase):
                 source_datetime = '2017-07-21T17:32:28Z',
                 transaction_datetime = '2017-07-21T17:32:28Z',
                 transaction_datetime_property_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                service_date = 'Fri Jul 21 02:00:00 CEST 2017',
+                service_date = 'Fri Jul 21 00:00:00 UTC 2017',
                 created_at = '2017-07-21T17:32:28Z'
             )
         else:

@@ -203,7 +203,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.TrialBalanceApi(api_client)
     x_property_id = 56 # int | Property id
-    var_date = 'Sun Jul 21 02:00:00 CEST 2024' # date | 
+    var_date = 'Sun Jul 21 00:00:00 UTC 2024' # date | 
 
     try:
         api_response = api_instance.get_trial_balance_report(x_property_id, var_date)

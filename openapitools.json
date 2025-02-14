@@ -8,7 +8,7 @@
   "additionalProperties": {
     "packageName": "cloudbeds_accounting",
     "projectName": "Cloudbeds Accounting",
-    "packageVersion": "1.0.0",
+    "packageVersion": "1.1.0",
     "packageDescription": "OpenAPI client for Cloudbeds Accounting API.",
     "generateSourceCodeOnly": true,
     "packageUrl": "https://github.com/cloudbeds/cloudbeds-accounting-python"
