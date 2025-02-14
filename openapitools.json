@@ -1,0 +1,21 @@
+{
+  "generator-cli": {
+    "version": "7.11.0"
+  },
+  "generatorName": "python",
+  "inputSpec": "accounting-openapi.yaml",
+  "outputDir": ".",
+  "additionalProperties": {
+    "packageName": "cloudbeds_accounting",
+    "projectName": "Cloudbeds Accounting",
+    "packageVersion": "1.0.0",
+    "packageDescription": "OpenAPI client for Cloudbeds Accounting API.",
+    "generateSourceCodeOnly": true,
+    "packageUrl": "https://github.com/cloudbeds/cloudbeds-accounting-python"
+  },
+  "files": {
+    "README_onlypackage.mustache": {
+      "destinationFilename": "README.md"
+    }
+  }
+}
