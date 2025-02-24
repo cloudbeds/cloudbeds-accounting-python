@@ -28,7 +28,7 @@ class FieldFilter(BaseModel):
     FieldFilter
     """ # noqa: E501
     operator: ConditionalOperator
-    value: Optional[Dict[str, Any]] = None
+    value: Optional[Any] = Field(default=None, description="Can be any of supported OpenApi types.")
     var_field: StrictStr = Field(alias="field")
     __properties: ClassVar[List[str]] = ["operator", "value", "field"]
 
@@ -71,6 +71,11 @@ class FieldFilter(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if value (nullable) is None
+        # and model_fields_set contains the field
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['value'] = None
+
         return _dict
 
     @classmethod

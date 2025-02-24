@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **var_and** | [**List[AndOrGroupAndInner]**](AndOrGroupAndInner.md) |  | [optional] 
 **var_or** | [**List[AndOrGroupAndInner]**](AndOrGroupAndInner.md) |  | [optional] 
 **operator** | [**ConditionalOperator**](ConditionalOperator.md) |  | 
-**value** | **object** |  | [optional] 
+**value** | **object** | Can be any of supported OpenApi types. | [optional] 
 **var_field** | **str** |  | 
 
 ## Example

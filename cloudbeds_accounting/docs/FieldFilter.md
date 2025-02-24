@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operator** | [**ConditionalOperator**](ConditionalOperator.md) |  | 
-**value** | **object** |  | [optional] 
+**value** | **object** | Can be any of supported OpenApi types. | [optional] 
 **var_field** | **str** |  | 
 
 ## Example
