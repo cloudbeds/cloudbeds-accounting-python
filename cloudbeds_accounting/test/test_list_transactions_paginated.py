@@ -43,6 +43,7 @@ class TestListTransactionsPaginated(unittest.TestCase):
                         custom_transaction_code = '', 
                         general_ledger_custom_code = '', 
                         amount = 1.337, 
+                        currency_scale = 56, 
                         currency = '', 
                         customer_id = '', 
                         root_id = '', 
@@ -67,7 +68,9 @@ class TestListTransactionsPaginated(unittest.TestCase):
                         transaction_datetime = '2017-07-21T17:32:28Z', 
                         transaction_datetime_property_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         service_date = 'Fri Jul 21 00:00:00 UTC 2017', 
-                        created_at = '2017-07-21T17:32:28Z', )
+                        created_at = '2017-07-21T17:32:28Z', 
+                        source_identifier = '38883261663', 
+                        sub_source_identifier = '38883261663-2', )
                     ],
                 next_page_token = ''
             )

@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**trial_balance_id** | **str** |  | [optional] 
 **summary** | [**TrialBalanceReportSummary**](TrialBalanceReportSummary.md) |  | [optional] 
 **ledger_balances** | [**TrialBalanceReportLedgerBalances**](TrialBalanceReportLedgerBalances.md) |  | [optional] 
 **guest_ledger** | [**TrialBalanceReportGuestLedger**](TrialBalanceReportGuestLedger.md) |  | [optional] 

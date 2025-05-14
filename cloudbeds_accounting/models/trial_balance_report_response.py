@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from cloudbeds_accounting.models.trial_balance_report_guest_ledger import TrialBalanceReportGuestLedger
 from cloudbeds_accounting.models.trial_balance_report_ledger_balances import TrialBalanceReportLedgerBalances
@@ -29,10 +29,11 @@ class TrialBalanceReportResponse(BaseModel):
     """
     TrialBalanceReportResponse
     """ # noqa: E501
+    trial_balance_id: Optional[StrictStr] = Field(default=None, alias="trialBalanceId")
     summary: Optional[TrialBalanceReportSummary] = None
     ledger_balances: Optional[TrialBalanceReportLedgerBalances] = Field(default=None, alias="ledgerBalances")
     guest_ledger: Optional[TrialBalanceReportGuestLedger] = Field(default=None, alias="guestLedger")
-    __properties: ClassVar[List[str]] = ["summary", "ledgerBalances", "guestLedger"]
+    __properties: ClassVar[List[str]] = ["trialBalanceId", "summary", "ledgerBalances", "guestLedger"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +95,7 @@ class TrialBalanceReportResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "trialBalanceId": obj.get("trialBalanceId"),
             "summary": TrialBalanceReportSummary.from_dict(obj["summary"]) if obj.get("summary") is not None else None,
             "ledgerBalances": TrialBalanceReportLedgerBalances.from_dict(obj["ledgerBalances"]) if obj.get("ledgerBalances") is not None else None,
             "guestLedger": TrialBalanceReportGuestLedger.from_dict(obj["guestLedger"]) if obj.get("guestLedger") is not None else None

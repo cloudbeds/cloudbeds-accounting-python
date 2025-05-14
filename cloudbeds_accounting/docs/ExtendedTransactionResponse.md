@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **folio_id** | **str** | Folio ID | [optional] 
 **state** | **str** |  | [optional] 
 **currency** | **str** | Currency ISO code | [optional] 
+**currency_scale** | **int** | Number of decimal places for the currency. | [optional] 
 **reservation_status** | [**ReservationStatus**](ReservationStatus.md) |  | [optional] 
 **posted** | **bool** | Flag to mark if transaction is posted | [optional] 
 **user** | [**UserModel**](UserModel.md) |  | [optional] 

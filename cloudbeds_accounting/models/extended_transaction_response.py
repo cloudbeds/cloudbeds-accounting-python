@@ -44,11 +44,12 @@ class ExtendedTransactionResponse(BaseModel):
     folio_id: Optional[StrictStr] = Field(default=None, description="Folio ID", alias="folioId")
     state: Optional[StrictStr] = None
     currency: Optional[StrictStr] = Field(default=None, description="Currency ISO code")
+    currency_scale: Optional[StrictInt] = Field(default=None, description="Number of decimal places for the currency.", alias="currencyScale")
     reservation_status: Optional[ReservationStatus] = Field(default=None, alias="reservationStatus")
     posted: Optional[StrictBool] = Field(default=None, description="Flag to mark if transaction is posted")
     user: Optional[UserModel] = None
     actions: Optional[List[Action]] = Field(default=None, description="Returns the list of actions available for the transaction")
-    __properties: ClassVar[List[str]] = ["id", "transactionDate", "reservationName", "checkinDate", "checkoutDate", "amount", "reservationId", "reservationIdentifier", "internalTransactionCode", "description", "notes", "folioId", "state", "currency", "reservationStatus", "posted", "user", "actions"]
+    __properties: ClassVar[List[str]] = ["id", "transactionDate", "reservationName", "checkinDate", "checkoutDate", "amount", "reservationId", "reservationIdentifier", "internalTransactionCode", "description", "notes", "folioId", "state", "currency", "currencyScale", "reservationStatus", "posted", "user", "actions"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -56,8 +57,8 @@ class ExtendedTransactionResponse(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['VOIDED', 'TRANSFERRED', 'CANCELLED', 'DELETED']):
-            raise ValueError("must be one of enum values ('VOIDED', 'TRANSFERRED', 'CANCELLED', 'DELETED')")
+        if value not in set(['VOIDED', 'TRANSFERRED', 'CANCELLED', 'REFUNDED', 'DELETED']):
+            raise ValueError("must be one of enum values ('VOIDED', 'TRANSFERRED', 'CANCELLED', 'REFUNDED', 'DELETED')")
         return value
 
     model_config = ConfigDict(
@@ -135,6 +136,7 @@ class ExtendedTransactionResponse(BaseModel):
             "folioId": obj.get("folioId"),
             "state": obj.get("state"),
             "currency": obj.get("currency"),
+            "currencyScale": obj.get("currencyScale"),
             "reservationStatus": obj.get("reservationStatus"),
             "posted": obj.get("posted"),
             "user": UserModel.from_dict(obj["user"]) if obj.get("user") is not None else None,

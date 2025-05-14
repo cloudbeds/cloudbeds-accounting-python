@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 # import apis into sdk package
 from cloudbeds_accounting.api.accounts_receivable_ledger_api import AccountsReceivableLedgerApi

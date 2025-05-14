@@ -35,6 +35,7 @@ class TestTrialBalanceReportResponse(unittest.TestCase):
         model = TrialBalanceReportResponse()
         if include_optional:
             return TrialBalanceReportResponse(
+                trial_balance_id = '',
                 summary = cloudbeds_accounting.models.trial_balance_report_summary.TrialBalanceReportSummary(
                     opening_balance = 1.337, 
                     transactions_total_amount = 1.337, 

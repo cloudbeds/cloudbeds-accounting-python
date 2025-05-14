@@ -35,6 +35,7 @@ class TransactionResponse(BaseModel):
     custom_transaction_code: Optional[StrictStr] = Field(default=None, description="Custom code for the transaction, managed by Property.", alias="customTransactionCode")
     general_ledger_custom_code: Optional[StrictStr] = Field(default=None, description="Custom code for general ledger, managed by Property.", alias="generalLedgerCustomCode")
     amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount of the transaction.")
+    currency_scale: Optional[StrictInt] = Field(default=None, description="Number of decimal places for the currency.", alias="currencyScale")
     currency: Optional[StrictStr] = Field(default=None, description="Currency (ISO code) applied to the amount of the transaction.")
     customer_id: Optional[StrictStr] = Field(default=None, description="Id of the user who perform the transaction, also know as guest id.", alias="customerId")
     root_id: Optional[StrictStr] = Field(default=None, description="Root Id of the transaction, it contains the id of the transaction that is related to it.", alias="rootId")
@@ -55,7 +56,9 @@ class TransactionResponse(BaseModel):
     transaction_datetime_property_time: Optional[datetime] = Field(default=None, description="Date time when the transaction should be created at base on the property timezone.", alias="transactionDatetimePropertyTime")
     service_date: Optional[date] = Field(default=None, description="Date when the posted transaction was created (property time).", alias="serviceDate")
     created_at: Optional[datetime] = Field(default=None, description="Date time when the transaction was inserted on the database. (ISO 8601) in UTC", alias="createdAt")
-    __properties: ClassVar[List[str]] = ["id", "propertyId", "internalTransactionCode", "customTransactionCode", "generalLedgerCustomCode", "amount", "currency", "customerId", "rootId", "parentId", "sourceId", "subSourceId", "sourceKind", "account", "externalRelationId", "externalRelationKind", "originId", "routedFrom", "quantity", "description", "userId", "sourceDatetime", "transactionDatetime", "transactionDatetimePropertyTime", "serviceDate", "createdAt"]
+    source_identifier: Optional[StrictStr] = Field(default=None, description="If source_kind = RESERVATION, this field will contain a reservation identifier. For a transaction with source_kind = GROUP_PROFILE, this field will contain a group code. For source_king = HOUSE_ACCOUNT it will be null.", alias="sourceIdentifier")
+    sub_source_identifier: Optional[StrictStr] = Field(default=None, description="identifier of a booking room", alias="subSourceIdentifier")
+    __properties: ClassVar[List[str]] = ["id", "propertyId", "internalTransactionCode", "customTransactionCode", "generalLedgerCustomCode", "amount", "currencyScale", "currency", "customerId", "rootId", "parentId", "sourceId", "subSourceId", "sourceKind", "account", "externalRelationId", "externalRelationKind", "originId", "routedFrom", "quantity", "description", "userId", "sourceDatetime", "transactionDatetime", "transactionDatetimePropertyTime", "serviceDate", "createdAt", "sourceIdentifier", "subSourceIdentifier"]
 
     @field_validator('external_relation_kind')
     def external_relation_kind_validate_enum(cls, value):
@@ -127,6 +130,7 @@ class TransactionResponse(BaseModel):
             "customTransactionCode": obj.get("customTransactionCode"),
             "generalLedgerCustomCode": obj.get("generalLedgerCustomCode"),
             "amount": obj.get("amount"),
+            "currencyScale": obj.get("currencyScale"),
             "currency": obj.get("currency"),
             "customerId": obj.get("customerId"),
             "rootId": obj.get("rootId"),
@@ -146,7 +150,9 @@ class TransactionResponse(BaseModel):
             "transactionDatetime": obj.get("transactionDatetime"),
             "transactionDatetimePropertyTime": obj.get("transactionDatetimePropertyTime"),
             "serviceDate": obj.get("serviceDate"),
-            "createdAt": obj.get("createdAt")
+            "createdAt": obj.get("createdAt"),
+            "sourceIdentifier": obj.get("sourceIdentifier"),
+            "subSourceIdentifier": obj.get("subSourceIdentifier")
         })
         return _obj
 

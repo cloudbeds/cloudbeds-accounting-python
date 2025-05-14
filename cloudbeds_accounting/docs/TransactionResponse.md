@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **custom_transaction_code** | **str** | Custom code for the transaction, managed by Property. | [optional] 
 **general_ledger_custom_code** | **str** | Custom code for general ledger, managed by Property. | [optional] 
 **amount** | **float** | Amount of the transaction. | [optional] 
+**currency_scale** | **int** | Number of decimal places for the currency. | [optional] 
 **currency** | **str** | Currency (ISO code) applied to the amount of the transaction. | [optional] 
 **customer_id** | **str** | Id of the user who perform the transaction, also know as guest id. | [optional] 
 **root_id** | **str** | Root Id of the transaction, it contains the id of the transaction that is related to it. | [optional] 
@@ -31,6 +32,8 @@ Name | Type | Description | Notes
 **transaction_datetime_property_time** | **datetime** | Date time when the transaction should be created at base on the property timezone. | [optional] 
 **service_date** | **date** | Date when the posted transaction was created (property time). | [optional] 
 **created_at** | **datetime** | Date time when the transaction was inserted on the database. (ISO 8601) in UTC | [optional] 
+**source_identifier** | **str** | If source_kind &#x3D; RESERVATION, this field will contain a reservation identifier. For a transaction with source_kind &#x3D; GROUP_PROFILE, this field will contain a group code. For source_king &#x3D; HOUSE_ACCOUNT it will be null. | [optional] 
+**sub_source_identifier** | **str** | identifier of a booking room | [optional] 
 
 ## Example
 

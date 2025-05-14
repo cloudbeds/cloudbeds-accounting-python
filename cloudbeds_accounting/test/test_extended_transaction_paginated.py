@@ -51,6 +51,7 @@ class TestExtendedTransactionPaginated(unittest.TestCase):
                         folio_id = '', 
                         state = 'VOIDED', 
                         currency = '', 
+                        currency_scale = 56, 
                         reservation_status = 'checked_out', 
                         posted = True, 
                         user = cloudbeds_accounting.models.user_model.UserModel(
