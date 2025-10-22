@@ -7,9 +7,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **opening_balance** | **float** |  | [optional] 
 **transactions_total_amount** | **float** |  | [optional] 
+**ledger_activity** | **float** |  | [optional] 
 **deposit_activity** | **float** |  | [optional] 
 **ar_payments** | **float** |  | [optional] 
+**deposit_transfers** | **float** |  | [optional] 
+**ar_activity** | **float** |  | [optional] 
 **closing_balance** | **float** |  | [optional] 
+**ar_transfers** | **float** |  | [optional] 
+**hotel_opening_balance** | **float** |  | [optional] 
+**hotel_closing_balance** | **float** |  | [optional] 
 
 ## Example
 

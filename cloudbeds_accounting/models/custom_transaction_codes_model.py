@@ -42,8 +42,8 @@ class CustomTransactionCodesModel(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting']):
-            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting')")
+        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item']):
+            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item')")
         return value
 
     model_config = ConfigDict(

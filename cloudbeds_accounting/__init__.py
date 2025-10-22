@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 
 # import apis into sdk package
 from cloudbeds_accounting.api.accounts_receivable_ledger_api import AccountsReceivableLedgerApi
@@ -22,6 +22,8 @@ from cloudbeds_accounting.api.custom_general_ledger_codes_api import CustomGener
 from cloudbeds_accounting.api.custom_transaction_codes_api import CustomTransactionCodesApi
 from cloudbeds_accounting.api.deposits_api import DepositsApi
 from cloudbeds_accounting.api.internal_transaction_codes_api import InternalTransactionCodesApi
+from cloudbeds_accounting.api.settings_api import SettingsApi
+from cloudbeds_accounting.api.source_balance_api import SourceBalanceApi
 from cloudbeds_accounting.api.transactions_api import TransactionsApi
 from cloudbeds_accounting.api.trial_balance_api import TrialBalanceApi
 
@@ -53,6 +55,7 @@ from cloudbeds_accounting.models.and_or_group_and_inner import AndOrGroupAndInne
 from cloudbeds_accounting.models.api_accounting_error import ApiAccountingError
 from cloudbeds_accounting.models.api_error_code import ApiErrorCode
 from cloudbeds_accounting.models.async_event_response import AsyncEventResponse
+from cloudbeds_accounting.models.balance_breakdown_item import BalanceBreakdownItem
 from cloudbeds_accounting.models.chart_of_account_type import ChartOfAccountType
 from cloudbeds_accounting.models.conditional_operator import ConditionalOperator
 from cloudbeds_accounting.models.custom_general_ledger_code_model import CustomGeneralLedgerCodeModel
@@ -61,6 +64,7 @@ from cloudbeds_accounting.models.custom_transaction_codes_model import CustomTra
 from cloudbeds_accounting.models.custom_transaction_codes_update_model import CustomTransactionCodesUpdateModel
 from cloudbeds_accounting.models.custom_transaction_codes_update_request import CustomTransactionCodesUpdateRequest
 from cloudbeds_accounting.models.deposit_balance_response import DepositBalanceResponse
+from cloudbeds_accounting.models.deposit_consumption_enum import DepositConsumptionEnum
 from cloudbeds_accounting.models.extended_transaction_paginated import ExtendedTransactionPaginated
 from cloudbeds_accounting.models.extended_transaction_response import ExtendedTransactionResponse
 from cloudbeds_accounting.models.field_filter import FieldFilter
@@ -72,13 +76,19 @@ from cloudbeds_accounting.models.get_deposit_transactions_filter_parameter impor
 from cloudbeds_accounting.models.internal_transaction_code_group_enum import InternalTransactionCodeGroupEnum
 from cloudbeds_accounting.models.internal_transaction_code_response import InternalTransactionCodeResponse
 from cloudbeds_accounting.models.internal_transaction_codes_list_response import InternalTransactionCodesListResponse
+from cloudbeds_accounting.models.list_pending_transactions_paginated import ListPendingTransactionsPaginated
+from cloudbeds_accounting.models.list_pending_transactions_request import ListPendingTransactionsRequest
 from cloudbeds_accounting.models.list_transactions_paginated import ListTransactionsPaginated
 from cloudbeds_accounting.models.list_transactions_request import ListTransactionsRequest
 from cloudbeds_accounting.models.logical_operator import LogicalOperator
 from cloudbeds_accounting.models.page_details import PageDetails
 from cloudbeds_accounting.models.reservation_status import ReservationStatus
+from cloudbeds_accounting.models.setting_patch_request import SettingPatchRequest
+from cloudbeds_accounting.models.setting_response import SettingResponse
+from cloudbeds_accounting.models.setting_values import SettingValues
 from cloudbeds_accounting.models.sort import Sort
 from cloudbeds_accounting.models.sort_direction import SortDirection
+from cloudbeds_accounting.models.source_balance_response import SourceBalanceResponse
 from cloudbeds_accounting.models.source_kind import SourceKind
 from cloudbeds_accounting.models.transaction_item_mapping_model import TransactionItemMappingModel
 from cloudbeds_accounting.models.transaction_item_mapping_request import TransactionItemMappingRequest

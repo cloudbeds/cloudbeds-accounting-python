@@ -28,10 +28,16 @@ class TrialBalanceReportSummary(BaseModel):
     """ # noqa: E501
     opening_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="openingBalance")
     transactions_total_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="transactionsTotalAmount")
+    ledger_activity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="ledgerActivity")
     deposit_activity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="depositActivity")
     ar_payments: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="arPayments")
+    deposit_transfers: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="depositTransfers")
+    ar_activity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="arActivity")
     closing_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="closingBalance")
-    __properties: ClassVar[List[str]] = ["openingBalance", "transactionsTotalAmount", "depositActivity", "arPayments", "closingBalance"]
+    ar_transfers: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="arTransfers")
+    hotel_opening_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="hotelOpeningBalance")
+    hotel_closing_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="hotelClosingBalance")
+    __properties: ClassVar[List[str]] = ["openingBalance", "transactionsTotalAmount", "ledgerActivity", "depositActivity", "arPayments", "depositTransfers", "arActivity", "closingBalance", "arTransfers", "hotelOpeningBalance", "hotelClosingBalance"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,9 +92,15 @@ class TrialBalanceReportSummary(BaseModel):
         _obj = cls.model_validate({
             "openingBalance": obj.get("openingBalance"),
             "transactionsTotalAmount": obj.get("transactionsTotalAmount"),
+            "ledgerActivity": obj.get("ledgerActivity"),
             "depositActivity": obj.get("depositActivity"),
             "arPayments": obj.get("arPayments"),
-            "closingBalance": obj.get("closingBalance")
+            "depositTransfers": obj.get("depositTransfers"),
+            "arActivity": obj.get("arActivity"),
+            "closingBalance": obj.get("closingBalance"),
+            "arTransfers": obj.get("arTransfers"),
+            "hotelOpeningBalance": obj.get("hotelOpeningBalance"),
+            "hotelClosingBalance": obj.get("hotelClosingBalance")
         })
         return _obj
 
