@@ -17,34 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from cloudbeds_accounting.models.deposit_consumption_enum import DepositConsumptionEnum
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TransactionItemMappingModel(BaseModel):
+class SettingValues(BaseModel):
     """
-    TransactionItemMappingModel
+    SettingValues
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    version: Optional[StrictInt] = None
-    name: Annotated[str, Field(min_length=1, strict=True)]
-    code: Annotated[str, Field(min_length=1, strict=True)]
-    sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
-    item_group: Optional[StrictStr] = Field(default=None, alias="itemGroup")
-    account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
-    __properties: ClassVar[List[str]] = ["id", "version", "name", "code", "sku", "itemGroup", "accountId"]
-
-    @field_validator('item_group')
-    def item_group_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item']):
-            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item')")
-        return value
+    deposit_consumption: Optional[DepositConsumptionEnum] = Field(default=None, alias="depositConsumption")
+    __properties: ClassVar[List[str]] = ["depositConsumption"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,7 +48,7 @@ class TransactionItemMappingModel(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TransactionItemMappingModel from a JSON string"""
+        """Create an instance of SettingValues from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -89,7 +73,7 @@ class TransactionItemMappingModel(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TransactionItemMappingModel from a dict"""
+        """Create an instance of SettingValues from a dict"""
         if obj is None:
             return None
 
@@ -97,13 +81,7 @@ class TransactionItemMappingModel(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "version": obj.get("version"),
-            "name": obj.get("name"),
-            "code": obj.get("code"),
-            "sku": obj.get("sku"),
-            "itemGroup": obj.get("itemGroup"),
-            "accountId": obj.get("accountId")
+            "depositConsumption": obj.get("depositConsumption")
         })
         return _obj
 

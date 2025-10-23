@@ -17,34 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TransactionItemMappingModel(BaseModel):
+class BalanceBreakdownItem(BaseModel):
     """
-    TransactionItemMappingModel
+    Breakdown item with name and amount for tax or fee breakdown
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    version: Optional[StrictInt] = None
-    name: Annotated[str, Field(min_length=1, strict=True)]
-    code: Annotated[str, Field(min_length=1, strict=True)]
-    sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
-    item_group: Optional[StrictStr] = Field(default=None, alias="itemGroup")
-    account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
-    __properties: ClassVar[List[str]] = ["id", "version", "name", "code", "sku", "itemGroup", "accountId"]
-
-    @field_validator('item_group')
-    def item_group_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item']):
-            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item')")
-        return value
+    name: StrictStr = Field(description="The name of the breakdown item (e.g., tax name, fee name)")
+    amount: Union[StrictFloat, StrictInt] = Field(description="The amount in the smallest currency unit (e.g., cents for USD)")
+    __properties: ClassVar[List[str]] = ["name", "amount"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,7 +48,7 @@ class TransactionItemMappingModel(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TransactionItemMappingModel from a JSON string"""
+        """Create an instance of BalanceBreakdownItem from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -89,7 +73,7 @@ class TransactionItemMappingModel(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TransactionItemMappingModel from a dict"""
+        """Create an instance of BalanceBreakdownItem from a dict"""
         if obj is None:
             return None
 
@@ -97,13 +81,8 @@ class TransactionItemMappingModel(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "version": obj.get("version"),
             "name": obj.get("name"),
-            "code": obj.get("code"),
-            "sku": obj.get("sku"),
-            "itemGroup": obj.get("itemGroup"),
-            "accountId": obj.get("accountId")
+            "amount": obj.get("amount")
         })
         return _obj
 

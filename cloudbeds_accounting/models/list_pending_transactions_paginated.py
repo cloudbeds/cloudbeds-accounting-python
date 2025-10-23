@@ -17,34 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from cloudbeds_accounting.models.transaction_response import TransactionResponse
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TransactionItemMappingModel(BaseModel):
+class ListPendingTransactionsPaginated(BaseModel):
     """
-    TransactionItemMappingModel
+    ListPendingTransactionsPaginated
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    version: Optional[StrictInt] = None
-    name: Annotated[str, Field(min_length=1, strict=True)]
-    code: Annotated[str, Field(min_length=1, strict=True)]
-    sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
-    item_group: Optional[StrictStr] = Field(default=None, alias="itemGroup")
-    account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
-    __properties: ClassVar[List[str]] = ["id", "version", "name", "code", "sku", "itemGroup", "accountId"]
-
-    @field_validator('item_group')
-    def item_group_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item']):
-            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item')")
-        return value
+    transactions: Optional[List[TransactionResponse]] = None
+    next_page_token: Optional[StrictStr] = Field(default=None, description="Token for fetching the next page of results", alias="nextPageToken")
+    __properties: ClassVar[List[str]] = ["transactions", "nextPageToken"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,7 +49,7 @@ class TransactionItemMappingModel(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TransactionItemMappingModel from a JSON string"""
+        """Create an instance of ListPendingTransactionsPaginated from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -85,11 +70,18 @@ class TransactionItemMappingModel(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in transactions (list)
+        _items = []
+        if self.transactions:
+            for _item_transactions in self.transactions:
+                if _item_transactions:
+                    _items.append(_item_transactions.to_dict())
+            _dict['transactions'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TransactionItemMappingModel from a dict"""
+        """Create an instance of ListPendingTransactionsPaginated from a dict"""
         if obj is None:
             return None
 
@@ -97,13 +89,8 @@ class TransactionItemMappingModel(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "version": obj.get("version"),
-            "name": obj.get("name"),
-            "code": obj.get("code"),
-            "sku": obj.get("sku"),
-            "itemGroup": obj.get("itemGroup"),
-            "accountId": obj.get("accountId")
+            "transactions": [TransactionResponse.from_dict(_item) for _item in obj["transactions"]] if obj.get("transactions") is not None else None,
+            "nextPageToken": obj.get("nextPageToken")
         })
         return _obj
 
