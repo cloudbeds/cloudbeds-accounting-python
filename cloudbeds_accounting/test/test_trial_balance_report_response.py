@@ -39,9 +39,15 @@ class TestTrialBalanceReportResponse(unittest.TestCase):
                 summary = cloudbeds_accounting.models.trial_balance_report_summary.TrialBalanceReportSummary(
                     opening_balance = 1.337, 
                     transactions_total_amount = 1.337, 
+                    ledger_activity = 1.337, 
                     deposit_activity = 1.337, 
                     ar_payments = 1.337, 
-                    closing_balance = 1.337, ),
+                    deposit_transfers = 1.337, 
+                    ar_activity = 1.337, 
+                    closing_balance = 1.337, 
+                    ar_transfers = 1.337, 
+                    hotel_opening_balance = 1.337, 
+                    hotel_closing_balance = 1.337, ),
                 ledger_balances = cloudbeds_accounting.models.trial_balance_report_ledger_balances.TrialBalanceReportLedgerBalances(
                     deposit_ledger = [
                         cloudbeds_accounting.models.trial_balance_report_code_info.TrialBalanceReportCodeInfo(

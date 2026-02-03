@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **total_to** | **int** |  | [optional] 
 **paid_from** | **int** |  | [optional] 
 **paid_to** | **int** |  | [optional] 
+**profile_id** | **int** |  | [optional] 
 **status** | [**List[AccountsReceivableLedgerStatus]**](AccountsReceivableLedgerStatus.md) |  | [optional] 
 **sort_by** | **str** | Sort field | [optional] 
 **sort_direction** | [**SortDirection**](SortDirection.md) |  | [optional] 

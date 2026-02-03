@@ -46,23 +46,24 @@ class GetAccountsReceivableLedgerTransactionsFilterParameter(BaseModel):
 
     @field_validator('transaction_type')
     def transaction_type_validate_enum(cls, value):
-        """Validates the enum"""
+        """Validates the enum, returning unknown_default_open_api for unrecognized values"""
         if value is None:
             return value
 
-        for i in value:
-            if i not in set(['TRANSFER', 'UNDO_TRANSFER', 'PAYMENT']):
-                raise ValueError("each list item must be one of ('TRANSFER', 'UNDO_TRANSFER', 'PAYMENT')")
+        _allowed_values = set(['TRANSFER', 'UNDO_TRANSFER', 'PAYMENT', 'unknown_default_open_api'])
+        # Map unknown values to the fallback
+        return [i if i in _allowed_values else 'unknown_default_open_api' for i in value]
         return value
 
     @field_validator('sort_by')
     def sort_by_validate_enum(cls, value):
-        """Validates the enum"""
+        """Validates the enum, returning unknown_default_open_api for unrecognized values"""
         if value is None:
             return value
 
-        if value not in set(['CHECKOUT_DATE', 'CHECKIN_DATE', 'TRANSACTION_DATE', 'AMOUNT']):
-            raise ValueError("must be one of enum values ('CHECKOUT_DATE', 'CHECKIN_DATE', 'TRANSACTION_DATE', 'AMOUNT')")
+        _allowed_values = set(['CHECKOUT_DATE', 'CHECKIN_DATE', 'TRANSACTION_DATE', 'AMOUNT', 'unknown_default_open_api'])
+        if value not in _allowed_values:
+            return 'unknown_default_open_api'
         return value
 
     model_config = ConfigDict(

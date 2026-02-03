@@ -33,12 +33,13 @@ class AccountsReceivableLedgerResponse(BaseModel):
     description: Optional[Annotated[str, Field(min_length=0, strict=True, max_length=200)]] = None
     status: Optional[AccountsReceivableLedgerStatus] = None
     property_id: Optional[StrictStr] = Field(default=None, alias="propertyId")
+    profile_id: Optional[StrictStr] = Field(default=None, description="Profile ID associated with this accounts receivable ledger", alias="profileId")
     total: Optional[Union[StrictFloat, StrictInt]] = None
     paid: Optional[Union[StrictFloat, StrictInt]] = None
     balance: Optional[Union[StrictFloat, StrictInt]] = None
     created_at: Optional[StrictStr] = Field(default=None, description="Created datetime (ISO 8601) in UTC", alias="createdAt")
     updated_at: Optional[StrictStr] = Field(default=None, description="Updated datetime (ISO 8601) in UTC", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "status", "propertyId", "total", "paid", "balance", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "status", "propertyId", "profileId", "total", "paid", "balance", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,6 +97,7 @@ class AccountsReceivableLedgerResponse(BaseModel):
             "description": obj.get("description"),
             "status": obj.get("status"),
             "propertyId": obj.get("propertyId"),
+            "profileId": obj.get("profileId"),
             "total": obj.get("total"),
             "paid": obj.get("paid"),
             "balance": obj.get("balance"),

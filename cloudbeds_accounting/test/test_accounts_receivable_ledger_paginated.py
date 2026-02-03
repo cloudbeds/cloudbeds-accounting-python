@@ -42,6 +42,7 @@ class TestAccountsReceivableLedgerPaginated(unittest.TestCase):
                         description = '', 
                         status = 'OPEN', 
                         property_id = '', 
+                        profile_id = '', 
                         total = 1.337, 
                         paid = 1.337, 
                         balance = 1.337, 

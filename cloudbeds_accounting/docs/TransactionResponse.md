@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Date time when the transaction was inserted on the database. (ISO 8601) in UTC | [optional] 
 **source_identifier** | **str** | If source_kind &#x3D; RESERVATION, this field will contain a reservation identifier. For a transaction with source_kind &#x3D; GROUP_PROFILE, this field will contain a group code. For source_king &#x3D; HOUSE_ACCOUNT it will be null. | [optional] 
 **sub_source_identifier** | **str** | identifier of a booking room | [optional] 
+**notes** | **str** | Notes associated with the transaction | [optional] 
 
 ## Example
 

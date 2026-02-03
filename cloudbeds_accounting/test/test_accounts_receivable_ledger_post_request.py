@@ -36,7 +36,8 @@ class TestAccountsReceivableLedgerPostRequest(unittest.TestCase):
         if include_optional:
             return AccountsReceivableLedgerPostRequest(
                 name = '0',
-                description = ''
+                description = '',
+                profile_id = 56
             )
         else:
             return AccountsReceivableLedgerPostRequest(

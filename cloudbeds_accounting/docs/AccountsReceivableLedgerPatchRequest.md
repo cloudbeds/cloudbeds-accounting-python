@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
+**profile_id** | **int** | Linkage with Profile ID | [optional] 
 **status** | [**AccountsReceivableLedgerStatus**](AccountsReceivableLedgerStatus.md) |  | [optional] 
 
 ## Example

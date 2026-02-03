@@ -38,10 +38,18 @@ class ApiErrorCode(str, Enum):
     ACCOUNTS_RECEIVABLE_LEDGER_NOT_FOUND = 'ACCOUNTS_RECEIVABLE_LEDGER_NOT_FOUND'
     ACCOUNTS_RECEIVABLE_LEDGER_STATUS_ERROR = 'ACCOUNTS_RECEIVABLE_LEDGER_STATUS_ERROR'
     BOOKING_STATUS_ERROR = 'BOOKING_STATUS_ERROR'
+    GROUP_PROFILE_NOT_FOUND = 'GROUP_PROFILE_NOT_FOUND'
+    GROUP_PROFILE_STATUS_ERROR = 'GROUP_PROFILE_STATUS_ERROR'
+    GROUP_PROFILE_FOLIO_ERROR = 'GROUP_PROFILE_FOLIO_ERROR'
+    UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of ApiErrorCode from a JSON string"""
         return cls(json.loads(json_str))
 
+    @classmethod
+    def _missing_(cls, value):
+        """Handle unknown enum values by returning the unknown default case."""
+        return cls.UNKNOWN_DEFAULT_OPEN_API
 

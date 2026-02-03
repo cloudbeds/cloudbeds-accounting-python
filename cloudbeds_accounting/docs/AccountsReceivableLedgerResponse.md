@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **status** | [**AccountsReceivableLedgerStatus**](AccountsReceivableLedgerStatus.md) |  | [optional] 
 **property_id** | **str** |  | [optional] 
+**profile_id** | **str** | Profile ID associated with this accounts receivable ledger | [optional] 
 **total** | **float** |  | [optional] 
 **paid** | **float** |  | [optional] 
 **balance** | **float** |  | [optional] 

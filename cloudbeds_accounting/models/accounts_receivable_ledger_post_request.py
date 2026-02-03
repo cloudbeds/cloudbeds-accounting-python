@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -29,7 +29,8 @@ class AccountsReceivableLedgerPostRequest(BaseModel):
     """ # noqa: E501
     name: Annotated[str, Field(min_length=1, strict=True, max_length=50)]
     description: Optional[Annotated[str, Field(min_length=0, strict=True, max_length=200)]] = None
-    __properties: ClassVar[List[str]] = ["name", "description"]
+    profile_id: Optional[StrictInt] = Field(default=None, description="Linkage with Profile ID", alias="profileId")
+    __properties: ClassVar[List[str]] = ["name", "description", "profileId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +84,8 @@ class AccountsReceivableLedgerPostRequest(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "description": obj.get("description")
+            "description": obj.get("description"),
+            "profileId": obj.get("profileId")
         })
         return _obj
 

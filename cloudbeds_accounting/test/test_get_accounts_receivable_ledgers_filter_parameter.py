@@ -44,6 +44,7 @@ class TestGetAccountsReceivableLedgersFilterParameter(unittest.TestCase):
                 total_to = 56,
                 paid_from = 56,
                 paid_to = 56,
+                profile_id = 56,
                 status = [
                     'OPEN'
                     ],

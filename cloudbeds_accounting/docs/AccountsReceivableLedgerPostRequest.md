@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
+**profile_id** | **int** | Linkage with Profile ID | [optional] 
 
 ## Example
 

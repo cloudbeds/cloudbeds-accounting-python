@@ -17,9 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from cloudbeds_accounting.models.transaction_item_group import TransactionItemGroup
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,19 +33,9 @@ class TransactionItemMappingModel(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)]
     code: Annotated[str, Field(min_length=1, strict=True)]
     sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
-    item_group: Optional[StrictStr] = Field(default=None, alias="itemGroup")
+    item_group: Optional[TransactionItemGroup] = Field(default=None, alias="itemGroup")
     account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
     __properties: ClassVar[List[str]] = ["id", "version", "name", "code", "sku", "itemGroup", "accountId"]
-
-    @field_validator('item_group')
-    def item_group_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item']):
-            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item')")
-        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

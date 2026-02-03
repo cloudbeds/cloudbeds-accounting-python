@@ -39,9 +39,16 @@ class TestCustomTransactionCodesModel(unittest.TestCase):
                 version = 56,
                 name = '0',
                 code = '0',
+                transaction_item_code = '',
                 sku = '0',
                 item_group = 'items_services',
-                custom_general_ledger_code_id = ''
+                custom_general_ledger_code_id = '',
+                item_id = '',
+                pos_item_id = '',
+                tax_id = '',
+                fee_id = '',
+                payment_id = '',
+                space_id = ''
             )
         else:
             return CustomTransactionCodesModel(

@@ -38,6 +38,7 @@ class TestAccountsReceivableLedgerPatchRequest(unittest.TestCase):
                 id = 56,
                 name = '0',
                 description = '',
+                profile_id = 56,
                 status = 'OPEN'
             )
         else:

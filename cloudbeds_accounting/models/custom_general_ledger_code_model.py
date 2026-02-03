@@ -37,12 +37,13 @@ class CustomGeneralLedgerCodeModel(BaseModel):
 
     @field_validator('group')
     def group_validate_enum(cls, value):
-        """Validates the enum"""
+        """Validates the enum, returning unknown_default_open_api for unrecognized values"""
         if value is None:
             return value
 
-        if value not in set(['payments', 'products', 'reservations', 'taxes_fees']):
-            raise ValueError("must be one of enum values ('payments', 'products', 'reservations', 'taxes_fees')")
+        _allowed_values = set(['payments', 'products', 'reservations', 'taxes_fees', 'deposit_transfers', 'accounts_receivable_transfers', 'spaces', 'unknown_default_open_api'])
+        if value not in _allowed_values:
+            return 'unknown_default_open_api'
         return value
 
     model_config = ConfigDict(

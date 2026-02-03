@@ -39,21 +39,23 @@ class GetAccountsReceivableLedgersFilterParameter(BaseModel):
     total_to: Optional[StrictInt] = Field(default=None, alias="totalTo")
     paid_from: Optional[StrictInt] = Field(default=None, alias="paidFrom")
     paid_to: Optional[StrictInt] = Field(default=None, alias="paidTo")
+    profile_id: Optional[StrictInt] = Field(default=None, alias="profileId")
     status: Optional[List[AccountsReceivableLedgerStatus]] = None
     sort_by: Optional[StrictStr] = Field(default=None, description="Sort field", alias="sortBy")
     sort_direction: Optional[SortDirection] = Field(default=None, alias="sortDirection")
     page_token: Optional[StrictStr] = Field(default=None, alias="pageToken")
     page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    __properties: ClassVar[List[str]] = ["searchQuery", "createdDateTimeFrom", "createdDateTimeTo", "balanceFrom", "balanceTo", "totalFrom", "totalTo", "paidFrom", "paidTo", "status", "sortBy", "sortDirection", "pageToken", "pageSize"]
+    __properties: ClassVar[List[str]] = ["searchQuery", "createdDateTimeFrom", "createdDateTimeTo", "balanceFrom", "balanceTo", "totalFrom", "totalTo", "paidFrom", "paidTo", "profileId", "status", "sortBy", "sortDirection", "pageToken", "pageSize"]
 
     @field_validator('sort_by')
     def sort_by_validate_enum(cls, value):
-        """Validates the enum"""
+        """Validates the enum, returning unknown_default_open_api for unrecognized values"""
         if value is None:
             return value
 
-        if value not in set(['status', 'name', 'created_at', 'balance', 'paid', 'total']):
-            raise ValueError("must be one of enum values ('status', 'name', 'created_at', 'balance', 'paid', 'total')")
+        _allowed_values = set(['status', 'name', 'created_at', 'balance', 'paid', 'total', 'unknown_default_open_api'])
+        if value not in _allowed_values:
+            return 'unknown_default_open_api'
         return value
 
     model_config = ConfigDict(
@@ -116,6 +118,7 @@ class GetAccountsReceivableLedgersFilterParameter(BaseModel):
             "totalTo": obj.get("totalTo"),
             "paidFrom": obj.get("paidFrom"),
             "paidTo": obj.get("paidTo"),
+            "profileId": obj.get("profileId"),
             "status": obj.get("status"),
             "sortBy": obj.get("sortBy"),
             "sortDirection": obj.get("sortDirection"),

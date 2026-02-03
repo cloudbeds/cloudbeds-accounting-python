@@ -70,7 +70,8 @@ class TestListTransactionsPaginated(unittest.TestCase):
                         service_date = 'Fri Jul 21 00:00:00 UTC 2017', 
                         created_at = '2017-07-21T17:32:28Z', 
                         source_identifier = '38883261663', 
-                        sub_source_identifier = '38883261663-2', )
+                        sub_source_identifier = '38883261663-2', 
+                        notes = '', )
                     ],
                 next_page_token = ''
             )

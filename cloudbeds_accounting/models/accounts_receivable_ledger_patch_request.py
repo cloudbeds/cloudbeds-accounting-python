@@ -31,8 +31,9 @@ class AccountsReceivableLedgerPatchRequest(BaseModel):
     id: StrictInt
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=50)]] = None
     description: Optional[Annotated[str, Field(min_length=0, strict=True, max_length=200)]] = None
+    profile_id: Optional[StrictInt] = Field(default=None, description="Linkage with Profile ID", alias="profileId")
     status: Optional[AccountsReceivableLedgerStatus] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "status"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "profileId", "status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +89,7 @@ class AccountsReceivableLedgerPatchRequest(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "profileId": obj.get("profileId"),
             "status": obj.get("status")
         })
         return _obj

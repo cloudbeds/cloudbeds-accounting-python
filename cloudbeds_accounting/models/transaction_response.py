@@ -58,16 +58,18 @@ class TransactionResponse(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Date time when the transaction was inserted on the database. (ISO 8601) in UTC", alias="createdAt")
     source_identifier: Optional[StrictStr] = Field(default=None, description="If source_kind = RESERVATION, this field will contain a reservation identifier. For a transaction with source_kind = GROUP_PROFILE, this field will contain a group code. For source_king = HOUSE_ACCOUNT it will be null.", alias="sourceIdentifier")
     sub_source_identifier: Optional[StrictStr] = Field(default=None, description="identifier of a booking room", alias="subSourceIdentifier")
-    __properties: ClassVar[List[str]] = ["id", "propertyId", "internalTransactionCode", "customTransactionCode", "generalLedgerCustomCode", "amount", "currencyScale", "currency", "customerId", "rootId", "parentId", "sourceId", "subSourceId", "sourceKind", "account", "externalRelationId", "externalRelationKind", "originId", "routedFrom", "quantity", "description", "userId", "sourceDatetime", "transactionDatetime", "transactionDatetimePropertyTime", "serviceDate", "createdAt", "sourceIdentifier", "subSourceIdentifier"]
+    notes: Optional[StrictStr] = Field(default=None, description="Notes associated with the transaction")
+    __properties: ClassVar[List[str]] = ["id", "propertyId", "internalTransactionCode", "customTransactionCode", "generalLedgerCustomCode", "amount", "currencyScale", "currency", "customerId", "rootId", "parentId", "sourceId", "subSourceId", "sourceKind", "account", "externalRelationId", "externalRelationKind", "originId", "routedFrom", "quantity", "description", "userId", "sourceDatetime", "transactionDatetime", "transactionDatetimePropertyTime", "serviceDate", "createdAt", "sourceIdentifier", "subSourceIdentifier", "notes"]
 
     @field_validator('external_relation_kind')
     def external_relation_kind_validate_enum(cls, value):
-        """Validates the enum"""
+        """Validates the enum, returning unknown_default_open_api for unrecognized values"""
         if value is None:
             return value
 
-        if value not in set(['ROOM', 'PAYMENT', 'ITEM', 'ITEM_POS', 'ADDON', 'RESERVATION', 'ACCOUNTS_RECEIVABLE', 'ROOM_REVENUE', 'TAX', 'FEE', 'ADJUSTMENT', 'PAYMENT_FEE']):
-            raise ValueError("must be one of enum values ('ROOM', 'PAYMENT', 'ITEM', 'ITEM_POS', 'ADDON', 'RESERVATION', 'ACCOUNTS_RECEIVABLE', 'ROOM_REVENUE', 'TAX', 'FEE', 'ADJUSTMENT', 'PAYMENT_FEE')")
+        _allowed_values = set(['ROOM', 'PAYMENT', 'ITEM', 'ITEM_POS', 'ADDON', 'RESERVATION', 'ACCOUNTS_RECEIVABLE', 'ROOM_REVENUE', 'TAX', 'FEE', 'ADJUSTMENT', 'PAYMENT_FEE', 'BOOKABLE_RESOURCE', 'unknown_default_open_api'])
+        if value not in _allowed_values:
+            return 'unknown_default_open_api'
         return value
 
     model_config = ConfigDict(
@@ -152,7 +154,8 @@ class TransactionResponse(BaseModel):
             "serviceDate": obj.get("serviceDate"),
             "createdAt": obj.get("createdAt"),
             "sourceIdentifier": obj.get("sourceIdentifier"),
-            "subSourceIdentifier": obj.get("subSourceIdentifier")
+            "subSourceIdentifier": obj.get("subSourceIdentifier"),
+            "notes": obj.get("notes")
         })
         return _obj
 

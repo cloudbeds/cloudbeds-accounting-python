@@ -8,10 +8,17 @@ Name | Type | Description | Notes
 **id** | **str** |  | [optional] 
 **version** | **int** |  | [optional] 
 **name** | **str** |  | 
-**code** | **str** |  | 
+**code** | **str** | The custom code assigned by the user. | 
+**transaction_item_code** | **str** | The system code that cannot be modified. | [optional] 
 **sku** | **str** |  | [optional] 
-**item_group** | **str** |  | [optional] 
+**item_group** | [**TransactionItemGroup**](TransactionItemGroup.md) |  | [optional] 
 **custom_general_ledger_code_id** | **str** |  | [optional] 
+**item_id** | **str** | Item ID for items_services group | [optional] 
+**pos_item_id** | **str** | POS Item ID for items_services group | [optional] 
+**tax_id** | **str** | Tax ID for taxes_fees group (taxes) | [optional] 
+**fee_id** | **str** | Fee ID for taxes_fees group (fees) | [optional] 
+**payment_id** | **str** | Payment ID for payments group | [optional] 
+**space_id** | **str** | Space ID for spaces group | [optional] 
 
 ## Example
 

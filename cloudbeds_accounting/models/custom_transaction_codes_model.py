@@ -17,9 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from cloudbeds_accounting.models.transaction_item_group import TransactionItemGroup
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,21 +31,18 @@ class CustomTransactionCodesModel(BaseModel):
     id: Optional[StrictStr] = None
     version: Optional[StrictInt] = None
     name: Annotated[str, Field(min_length=1, strict=True)]
-    code: Annotated[str, Field(min_length=1, strict=True)]
+    code: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The custom code assigned by the user.")
+    transaction_item_code: Optional[StrictStr] = Field(default=None, description="The system code that cannot be modified.", alias="transactionItemCode")
     sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
-    item_group: Optional[StrictStr] = Field(default=None, alias="itemGroup")
+    item_group: Optional[TransactionItemGroup] = Field(default=None, alias="itemGroup")
     custom_general_ledger_code_id: Optional[StrictStr] = Field(default=None, alias="customGeneralLedgerCodeId")
-    __properties: ClassVar[List[str]] = ["id", "version", "name", "code", "sku", "itemGroup", "customGeneralLedgerCodeId"]
-
-    @field_validator('item_group')
-    def item_group_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item']):
-            raise ValueError("must be one of enum values ('items_services', 'reservations', 'taxes_fees', 'payments', 'accrual_accounting', 'custom_item')")
-        return value
+    item_id: Optional[StrictStr] = Field(default=None, description="Item ID for items_services group", alias="itemId")
+    pos_item_id: Optional[StrictStr] = Field(default=None, description="POS Item ID for items_services group", alias="posItemId")
+    tax_id: Optional[StrictStr] = Field(default=None, description="Tax ID for taxes_fees group (taxes)", alias="taxId")
+    fee_id: Optional[StrictStr] = Field(default=None, description="Fee ID for taxes_fees group (fees)", alias="feeId")
+    payment_id: Optional[StrictStr] = Field(default=None, description="Payment ID for payments group", alias="paymentId")
+    space_id: Optional[StrictStr] = Field(default=None, description="Space ID for spaces group", alias="spaceId")
+    __properties: ClassVar[List[str]] = ["id", "version", "name", "code", "transactionItemCode", "sku", "itemGroup", "customGeneralLedgerCodeId", "itemId", "posItemId", "taxId", "feeId", "paymentId", "spaceId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,9 +99,16 @@ class CustomTransactionCodesModel(BaseModel):
             "version": obj.get("version"),
             "name": obj.get("name"),
             "code": obj.get("code"),
+            "transactionItemCode": obj.get("transactionItemCode"),
             "sku": obj.get("sku"),
             "itemGroup": obj.get("itemGroup"),
-            "customGeneralLedgerCodeId": obj.get("customGeneralLedgerCodeId")
+            "customGeneralLedgerCodeId": obj.get("customGeneralLedgerCodeId"),
+            "itemId": obj.get("itemId"),
+            "posItemId": obj.get("posItemId"),
+            "taxId": obj.get("taxId"),
+            "feeId": obj.get("feeId"),
+            "paymentId": obj.get("paymentId"),
+            "spaceId": obj.get("spaceId")
         })
         return _obj
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | 
 **code** | **str** |  | 
 **sku** | **str** |  | [optional] 
-**item_group** | **str** |  | [optional] 
+**item_group** | [**TransactionItemGroup**](TransactionItemGroup.md) |  | [optional] 
 **account_id** | **str** |  | [optional] 
 
 ## Example

@@ -74,6 +74,12 @@ class TestAccountsReceivableLedgerApi(unittest.TestCase):
         """
         pass
 
+    def test_post_accounts_receivable_ledger_group_balance_transfer(self) -> None:
+        """Test case for post_accounts_receivable_ledger_group_balance_transfer
+
+        """
+        pass
+
     def test_post_accounts_receivable_ledger_reservation_balance_transfer(self) -> None:
         """Test case for post_accounts_receivable_ledger_reservation_balance_transfer
 

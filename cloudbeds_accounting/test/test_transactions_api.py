@@ -26,6 +26,12 @@ class TestTransactionsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_list_pending_transactions(self) -> None:
+        """Test case for list_pending_transactions
+
+        """
+        pass
+
     def test_list_transactions(self) -> None:
         """Test case for list_transactions
 
