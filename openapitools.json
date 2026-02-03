@@ -5,13 +5,15 @@
   "generatorName": "python",
   "inputSpec": "accounting-openapi.yaml",
   "outputDir": ".",
+  "templateDir": "templates",
   "additionalProperties": {
     "packageName": "cloudbeds_accounting",
     "projectName": "Cloudbeds Accounting",
     "packageVersion": "1.5.0",
     "packageDescription": "OpenAPI client for Cloudbeds Accounting API.",
     "generateSourceCodeOnly": true,
-    "packageUrl": "https://github.com/cloudbeds/cloudbeds-accounting-python"
+    "packageUrl": "https://github.com/cloudbeds/cloudbeds-accounting-python",
+    "enumUnknownDefaultCase": true
   },
   "files": {
     "README_onlypackage.mustache": {
