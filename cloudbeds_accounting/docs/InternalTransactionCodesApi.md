@@ -4,17 +4,20 @@ All URIs are relative to *https://api.cloudbeds-stage.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_internal_transaction_codes**](InternalTransactionCodesApi.md#get_internal_transaction_codes) | **GET** /accounting/v1.0/internal-transaction-codes | 
+[**get_internal_transaction_codes**](InternalTransactionCodesApi.md#get_internal_transaction_codes) | **GET** /accounting/v1.0/internal-transaction-codes | List internal transaction codes
 
 
 # **get_internal_transaction_codes**
 > InternalTransactionCodesListResponse get_internal_transaction_codes()
 
+List internal transaction codes
+
+Retrieve the complete list of Cloudbeds internal transaction codes. These are system-defined codes that categorize each type of transaction (e.g., room rate, tax, fee, payment). Internal codes cannot be modified, but you can map them to your own custom codes using the custom transaction codes endpoints.
 
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -33,10 +36,7 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
@@ -44,6 +44,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
     api_instance = cloudbeds_accounting.InternalTransactionCodesApi(api_client)
 
     try:
+        # List internal transaction codes
         api_response = api_instance.get_internal_transaction_codes()
         print("The response of InternalTransactionCodesApi->get_internal_transaction_codes:\n")
         pprint(api_response)

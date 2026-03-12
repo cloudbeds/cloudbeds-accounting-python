@@ -1,13 +1,14 @@
 # AccountsReceivableLedgerTotalsResponse
 
+Aggregated totals across all matching accounts receivable ledgers.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total** | **float** |  | [optional] 
-**paid** | **float** |  | [optional] 
-**balance** | **float** |  | [optional] 
+**total** | **float** | Sum of all charges across matching AR ledgers, in the smallest currency unit. | [optional] 
+**paid** | **float** | Sum of all payments across matching AR ledgers, in the smallest currency unit. | [optional] 
+**balance** | **float** | Sum of outstanding balances across matching AR ledgers (total minus paid), in the smallest currency unit. | [optional] 
 
 ## Example
 

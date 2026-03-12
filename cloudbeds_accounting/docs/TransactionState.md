@@ -1,5 +1,6 @@
 # TransactionState
 
+The state of a transaction. POSTED transactions are finalized and appear on the guest folio. PENDING transactions have been created but are not yet finalized (e.g., an authorized payment that has not been captured). 
 
 ## Enum
 

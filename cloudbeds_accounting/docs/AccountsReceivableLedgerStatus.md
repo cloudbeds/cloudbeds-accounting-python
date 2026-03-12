@@ -1,5 +1,6 @@
 # AccountsReceivableLedgerStatus
 
+Status of an accounts receivable ledger. OPEN ledgers can receive balance transfers and payments. CLOSED ledgers are settled and no longer accept new transactions. 
 
 ## Enum
 

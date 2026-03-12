@@ -4,20 +4,21 @@ All URIs are relative to *https://api.cloudbeds-stage.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_settings**](SettingsApi.md#get_settings) | **GET** /accounting/v1.0/settings | 
-[**patch_settings**](SettingsApi.md#patch_settings) | **PATCH** /accounting/v1.0/settings | 
+[**get_settings**](SettingsApi.md#get_settings) | **GET** /accounting/v1.0/settings | Get property accounting settings
+[**patch_settings**](SettingsApi.md#patch_settings) | **PATCH** /accounting/v1.0/settings | Update property accounting settings
 
 
 # **get_settings**
 > SettingResponse get_settings(x_property_id)
 
+Get property accounting settings
 
+Retrieve the accounting settings for a property. Use this endpoint to check the current configuration, such as the deposit consumption policy. Settings control how certain accounting behaviors work across the property.
 
-Get property settings by its ID
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -36,18 +37,16 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.SettingsApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
 
     try:
+        # Get property accounting settings
         api_response = api_instance.get_settings(x_property_id)
         print("The response of SettingsApi->get_settings:\n")
         pprint(api_response)
@@ -62,7 +61,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
 
 ### Return type
 
@@ -90,13 +89,14 @@ Name | Type | Description  | Notes
 # **patch_settings**
 > SettingResponse patch_settings(x_property_id, setting_patch_request)
 
+Update property accounting settings
 
+Update one or more accounting settings for a property. You only need to include the fields you want to change; unspecified fields remain unchanged. If no settings exist for the property, they are created automatically.
 
-Update partially or create settings
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -116,19 +116,17 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.SettingsApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
     setting_patch_request = cloudbeds_accounting.SettingPatchRequest() # SettingPatchRequest | 
 
     try:
+        # Update property accounting settings
         api_response = api_instance.patch_settings(x_property_id, setting_patch_request)
         print("The response of SettingsApi->patch_settings:\n")
         pprint(api_response)
@@ -143,7 +141,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
  **setting_patch_request** | [**SettingPatchRequest**](SettingPatchRequest.md)|  | 
 
 ### Return type

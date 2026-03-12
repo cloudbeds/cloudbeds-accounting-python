@@ -1,5 +1,6 @@
 # DepositConsumptionEnum
 
+Controls when deposit transactions are automatically transferred to the guest ledger. MANUAL means deposits are only transferred when explicitly requested. CHECK_IN means deposits are automatically transferred when the guest checks in. CHECK_OUT means deposits are automatically transferred when the guest checks out. 
 
 ## Enum
 

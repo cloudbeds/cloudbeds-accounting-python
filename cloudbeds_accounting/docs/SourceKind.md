@@ -1,6 +1,6 @@
 # SourceKind
 
-Source Kind. At the moment only available RESERVATION | GROUP_PROFILE | HOUSE_ACCOUNT | ACCOUNTS_RECEIVABLE.
+The type of financial source that owns transactions and balances. RESERVATION is an individual guest booking, HOUSE_ACCOUNT is a property-level account for miscellaneous charges, GROUP_PROFILE is a group booking that can aggregate charges from multiple reservations, and ACCOUNTS_RECEIVABLE_LEDGER tracks balances transferred for later collection. 
 
 ## Enum
 

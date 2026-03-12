@@ -5,6 +5,8 @@ from cloudbeds_accounting.api.accounts_receivable_ledger_api import AccountsRece
 from cloudbeds_accounting.api.custom_general_ledger_codes_api import CustomGeneralLedgerCodesApi
 from cloudbeds_accounting.api.custom_transaction_codes_api import CustomTransactionCodesApi
 from cloudbeds_accounting.api.deposits_api import DepositsApi
+from cloudbeds_accounting.api.folio_configuration_api import FolioConfigurationApi
+from cloudbeds_accounting.api.folios_api import FoliosApi
 from cloudbeds_accounting.api.internal_transaction_codes_api import InternalTransactionCodesApi
 from cloudbeds_accounting.api.settings_api import SettingsApi
 from cloudbeds_accounting.api.source_balance_api import SourceBalanceApi

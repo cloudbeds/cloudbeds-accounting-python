@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **status** | [**AccountsReceivableLedgerStatus**](AccountsReceivableLedgerStatus.md) |  | [optional] 
 **property_id** | **str** |  | [optional] 
 **profile_id** | **str** | Profile ID associated with this accounts receivable ledger | [optional] 
-**total** | **float** |  | [optional] 
-**paid** | **float** |  | [optional] 
-**balance** | **float** |  | [optional] 
+**total** | **float** | Total amount of all charges transferred to this AR ledger, in the smallest currency unit. | [optional] 
+**paid** | **float** | Total amount of payments applied to this AR ledger, in the smallest currency unit. | [optional] 
+**balance** | **float** | Outstanding balance (total minus paid), in the smallest currency unit. | [optional] 
 **created_at** | **str** | Created datetime (ISO 8601) in UTC | [optional] 
 **updated_at** | **str** | Updated datetime (ISO 8601) in UTC | [optional] 
 

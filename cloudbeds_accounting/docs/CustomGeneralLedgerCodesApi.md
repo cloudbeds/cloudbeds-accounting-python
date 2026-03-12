@@ -4,18 +4,21 @@ All URIs are relative to *https://api.cloudbeds-stage.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_custom_general_ledger_codes**](CustomGeneralLedgerCodesApi.md#get_custom_general_ledger_codes) | **GET** /accounting/v1.0/custom-general-ledger-codes | 
-[**put_custom_general_ledger_codes**](CustomGeneralLedgerCodesApi.md#put_custom_general_ledger_codes) | **PUT** /accounting/v1.0/custom-general-ledger-codes | 
+[**get_custom_general_ledger_codes**](CustomGeneralLedgerCodesApi.md#get_custom_general_ledger_codes) | **GET** /accounting/v1.0/custom-general-ledger-codes | List custom general ledger codes
+[**put_custom_general_ledger_codes**](CustomGeneralLedgerCodesApi.md#put_custom_general_ledger_codes) | **PUT** /accounting/v1.0/custom-general-ledger-codes | Create or update custom general ledger codes
 
 
 # **get_custom_general_ledger_codes**
 > List[CustomGeneralLedgerCodeModel] get_custom_general_ledger_codes(x_property_id)
 
+List custom general ledger codes
+
+Retrieve all custom general ledger (GL) codes configured for a property. GL codes let you map Cloudbeds transaction categories to your own chart-of-accounts structure for reporting and export to external accounting systems.
 
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -34,18 +37,16 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.CustomGeneralLedgerCodesApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
 
     try:
+        # List custom general ledger codes
         api_response = api_instance.get_custom_general_ledger_codes(x_property_id)
         print("The response of CustomGeneralLedgerCodesApi->get_custom_general_ledger_codes:\n")
         pprint(api_response)
@@ -60,7 +61,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
 
 ### Return type
 
@@ -87,13 +88,14 @@ Name | Type | Description  | Notes
 # **put_custom_general_ledger_codes**
 > put_custom_general_ledger_codes(x_property_id, custom_general_ledger_codes_update_request)
 
+Create or update custom general ledger codes
 
+Create or update custom general ledger (GL) codes for a property. Send the full list of GL codes you want to persist. Each code must have a unique name and code value. You can assign codes to groups (payments, products, reservations, taxes/fees, etc.) to categorize them. To archive a code, set its `archived` flag to true.
 
-Create or update General Ledger Codes. 
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -112,19 +114,17 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.CustomGeneralLedgerCodesApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
     custom_general_ledger_codes_update_request = cloudbeds_accounting.CustomGeneralLedgerCodesUpdateRequest() # CustomGeneralLedgerCodesUpdateRequest | 
 
     try:
+        # Create or update custom general ledger codes
         api_instance.put_custom_general_ledger_codes(x_property_id, custom_general_ledger_codes_update_request)
     except Exception as e:
         print("Exception when calling CustomGeneralLedgerCodesApi->put_custom_general_ledger_codes: %s\n" % e)
@@ -137,7 +137,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
  **custom_general_ledger_codes_update_request** | [**CustomGeneralLedgerCodesUpdateRequest**](CustomGeneralLedgerCodesUpdateRequest.md)|  | 
 
 ### Return type

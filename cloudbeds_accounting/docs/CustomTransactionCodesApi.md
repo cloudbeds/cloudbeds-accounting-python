@@ -4,19 +4,22 @@ All URIs are relative to *https://api.cloudbeds-stage.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_custom_transaction_codes**](CustomTransactionCodesApi.md#get_custom_transaction_codes) | **GET** /accounting/v1.0/custom-transaction-codes | 
-[**initialize_custom_transaction_codes**](CustomTransactionCodesApi.md#initialize_custom_transaction_codes) | **POST** /accounting/v1.0/custom-transaction-codes/initialize | 
-[**put_custom_transaction_codes**](CustomTransactionCodesApi.md#put_custom_transaction_codes) | **PUT** /accounting/v1.0/custom-transaction-codes | 
+[**get_custom_transaction_codes**](CustomTransactionCodesApi.md#get_custom_transaction_codes) | **GET** /accounting/v1.0/custom-transaction-codes | List custom transaction codes
+[**initialize_custom_transaction_codes**](CustomTransactionCodesApi.md#initialize_custom_transaction_codes) | **POST** /accounting/v1.0/custom-transaction-codes/initialize | Initialize custom transaction codes
+[**put_custom_transaction_codes**](CustomTransactionCodesApi.md#put_custom_transaction_codes) | **PUT** /accounting/v1.0/custom-transaction-codes | Update custom transaction code mappings
 
 
 # **get_custom_transaction_codes**
 > List[CustomTransactionCodesModel] get_custom_transaction_codes(x_property_id)
 
+List custom transaction codes
+
+Retrieve all custom transaction code mappings for a property. Custom transaction codes let you assign your own codes to each Cloudbeds internal transaction type (e.g., room rate, tax, payment method). You must call the initialize endpoint before codes can be retrieved for the first time.
 
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -35,18 +38,16 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.CustomTransactionCodesApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
 
     try:
+        # List custom transaction codes
         api_response = api_instance.get_custom_transaction_codes(x_property_id)
         print("The response of CustomTransactionCodesApi->get_custom_transaction_codes:\n")
         pprint(api_response)
@@ -61,7 +62,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
 
 ### Return type
 
@@ -88,11 +89,14 @@ Name | Type | Description  | Notes
 # **initialize_custom_transaction_codes**
 > initialize_custom_transaction_codes(x_property_id)
 
+Initialize custom transaction codes
+
+Initialize custom transaction code records for a property. You must call this endpoint before you can retrieve or update custom transaction codes. Initialization creates a record for each internal transaction type with an empty custom code mapping. If codes have already been initialized, this endpoint has no additional effect.
 
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -110,18 +114,16 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.CustomTransactionCodesApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
 
     try:
+        # Initialize custom transaction codes
         api_instance.initialize_custom_transaction_codes(x_property_id)
     except Exception as e:
         print("Exception when calling CustomTransactionCodesApi->initialize_custom_transaction_codes: %s\n" % e)
@@ -134,7 +136,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
 
 ### Return type
 
@@ -161,13 +163,14 @@ void (empty response body)
 # **put_custom_transaction_codes**
 > put_custom_transaction_codes(x_property_id, custom_transaction_codes_update_request)
 
+Update custom transaction code mappings
 
+Update custom transaction code mappings for a property. For each mapping, provide the record ID and the new custom code value. You can also optionally assign a custom general ledger code to each transaction code. Only the mappings you include in the request are updated; others remain unchanged.
 
-Update custom transaction code mappings. Optional custom general ledger code can also be assigned. 
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -186,19 +189,17 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.CustomTransactionCodesApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
     custom_transaction_codes_update_request = cloudbeds_accounting.CustomTransactionCodesUpdateRequest() # CustomTransactionCodesUpdateRequest | 
 
     try:
+        # Update custom transaction code mappings
         api_instance.put_custom_transaction_codes(x_property_id, custom_transaction_codes_update_request)
     except Exception as e:
         print("Exception when calling CustomTransactionCodesApi->put_custom_transaction_codes: %s\n" % e)
@@ -211,7 +212,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
  **custom_transaction_codes_update_request** | [**CustomTransactionCodesUpdateRequest**](CustomTransactionCodesUpdateRequest.md)|  | 
 
 ### Return type

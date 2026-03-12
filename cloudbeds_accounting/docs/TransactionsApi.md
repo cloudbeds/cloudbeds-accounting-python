@@ -4,20 +4,103 @@ All URIs are relative to *https://api.cloudbeds-stage.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**list_pending_transactions**](TransactionsApi.md#list_pending_transactions) | **POST** /accounting/v1.0/pending-transactions | 
-[**list_transactions**](TransactionsApi.md#list_transactions) | **POST** /accounting/v1.0/transactions | 
+[**list_pending_transactions**](TransactionsApi.md#list_pending_transactions) | **POST** /accounting/v1.0/pending-transactions | Search pending transactions
+[**list_transactions**](TransactionsApi.md#list_transactions) | **POST** /accounting/v1.0/transactions | Search posted transactions
 
 
 # **list_pending_transactions**
 > ListPendingTransactionsPaginated list_pending_transactions(x_property_id, list_pending_transactions_request)
 
+Search pending transactions
 
+Search and retrieve pending (not yet posted) transactions for a property. Pending transactions represent charges, payments, or adjustments that have been created but not yet finalized. This endpoint uses POST (instead of GET) to support complex filter criteria in the request body. The filter and sort options are the same as for posted transactions.
 
-Supported fields for filtering:   - account_category   - chart_of_account_type   - created_at - Same as `transaction_datetime`   - customer_id   - custom_code   - external_relation_id   - external_relation_kind   - folio_id   - id   - internal_code   - origin_id   - parent_id   - routed_from   - source_id   - source_identifier   - source_kind   - transaction_datetime   - trial_balance_id   - service_date  Supported fields for sorting:   - created_at - Same as `transaction_datetime`   - id   - internal_code   - source_id   - transaction_datetime   - service_date  Example request: ```   {     \"filters\": {       \"and\": [         {           \"operator\": \"greater_than_or_equal\",           \"value\": \"2019-01-11t08:59:00Z\",           \"field\": \"transaction_datetime\"         },         {           \"operator\": \"equals\",           \"value\": \"123\",           \"field\": \"source_id\"         },         {           \"operator\": \"equals\",           \"value\": \"RESERVATION\",           \"field\": \"source_kind\"         },         {           \"or\": [             {               \"operator\": \"in\",               \"value\": [\"1\", \"2\", \"3\"],               \"field\": \"customer_id\"             },             {               \"operator\": \"equals\",               \"value\": \"9000\",               \"field\": \"internal_code\"             }           ]         }       ]     },     \"pageToken\": null,     \"limit\": 10,     \"sort\": [       {         \"field\": \"transaction_datetime\",         \"direction\": \"asc\"       }     ]   }  The API has certain constraints for filters so that the system is able to efficiently query the data. Filters must include on of the following:   - filter by 'id' with condition 'equals' or 'in'   - filter by both 'source_id' and 'source_kind'   - filter by both 'external_relation_id' and 'external_relation_kind'   - filter by transaction_datetime ``` 
+Supported fields for filtering:
+  - account_category
+  - chart_of_account_type
+  - created_at - Same as `transaction_datetime`
+  - customer_id
+  - custom_code
+  - external_relation_id
+  - external_relation_kind
+  - folio_id
+  - id
+  - internal_code
+  - origin_id
+  - parent_id
+  - routed_from
+  - source_id
+  - source_identifier
+  - source_kind
+  - transaction_datetime
+  - trial_balance_id
+  - service_date
+
+Supported fields for sorting:
+  - created_at - Same as `transaction_datetime`
+  - id
+  - internal_code
+  - source_id
+  - transaction_datetime
+  - service_date
+
+Example request:
+```
+  {
+    "filters": {
+      "and": [
+        {
+          "operator": "greater_than_or_equal",
+          "value": "2019-01-11t08:59:00Z",
+          "field": "transaction_datetime"
+        },
+        {
+          "operator": "equals",
+          "value": "123",
+          "field": "source_id"
+        },
+        {
+          "operator": "equals",
+          "value": "RESERVATION",
+          "field": "source_kind"
+        },
+        {
+          "or": [
+            {
+              "operator": "in",
+              "value": ["1", "2", "3"],
+              "field": "customer_id"
+            },
+            {
+              "operator": "equals",
+              "value": "9000",
+              "field": "internal_code"
+            }
+          ]
+        }
+      ]
+    },
+    "pageToken": null,
+    "limit": 10,
+    "sort": [
+      {
+        "field": "transaction_datetime",
+        "direction": "asc"
+      }
+    ]
+  }
+
+The API has certain constraints for filters so that the system is able to efficiently query the data. Filters must include on of the following:
+  - filter by 'id' with condition 'equals' or 'in'
+  - filter by both 'source_id' and 'source_kind'
+  - filter by both 'external_relation_id' and 'external_relation_kind'
+  - filter by transaction_datetime
+```
+
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -37,19 +120,17 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.TransactionsApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
     list_pending_transactions_request = cloudbeds_accounting.ListPendingTransactionsRequest() # ListPendingTransactionsRequest | 
 
     try:
+        # Search pending transactions
         api_response = api_instance.list_pending_transactions(x_property_id, list_pending_transactions_request)
         print("The response of TransactionsApi->list_pending_transactions:\n")
         pprint(api_response)
@@ -64,7 +145,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
  **list_pending_transactions_request** | [**ListPendingTransactionsRequest**](ListPendingTransactionsRequest.md)|  | 
 
 ### Return type
@@ -92,13 +173,96 @@ Name | Type | Description  | Notes
 # **list_transactions**
 > ListTransactionsPaginated list_transactions(x_property_id, list_transactions_request)
 
+Search posted transactions
 
+Search and retrieve posted transactions for a property. This endpoint uses POST (instead of GET) to support complex filter criteria in the request body. You can combine multiple filters with AND/OR logic, paginate results, and sort by various fields.
 
-Supported fields for filtering:   - account_category   - chart_of_account_type   - created_at - Same as `transaction_datetime`   - customer_id   - custom_code   - external_relation_id   - external_relation_kind   - folio_id   - id   - internal_code   - origin_id   - parent_id   - routed_from   - source_id   - source_identifier   - source_kind   - transaction_datetime   - trial_balance_id   - service_date  Supported fields for sorting:   - created_at - Same as `transaction_datetime`   - id   - internal_code   - source_id   - transaction_datetime   - service_date  Example request: ```   {     \"filters\": {       \"and\": [         {           \"operator\": \"greater_than_or_equal\",           \"value\": \"2019-01-11t08:59:00Z\",           \"field\": \"transaction_datetime\"         },         {           \"operator\": \"equals\",           \"value\": \"123\",           \"field\": \"source_id\"         },         {           \"operator\": \"equals\",           \"value\": \"RESERVATION\",           \"field\": \"source_kind\"         },         {           \"or\": [             {               \"operator\": \"in\",               \"value\": [\"1\", \"2\", \"3\"],               \"field\": \"customer_id\"             },             {               \"operator\": \"equals\",               \"value\": \"9000\",               \"field\": \"internal_code\"             }           ]         }       ]     },     \"pageToken\": null,     \"limit\": 10,     \"sort\": [       {         \"field\": \"transaction_datetime\",         \"direction\": \"asc\"       }     ]   }  The API has certain constraints for filters so that the system is able to efficiently query the data. Filters must include on of the following:   - filter by 'id' with condition 'equals' or 'in'   - filter by both 'source_id' and 'source_kind'   - filter by both 'external_relation_id' and 'external_relation_kind'   - filter by transaction_datetime ``` 
+Supported fields for filtering:
+  - account_category
+  - chart_of_account_type
+  - created_at - Same as `transaction_datetime`
+  - customer_id
+  - custom_code
+  - external_relation_id
+  - external_relation_kind
+  - folio_id
+  - id
+  - internal_code
+  - origin_id
+  - parent_id
+  - routed_from
+  - source_id
+  - source_identifier
+  - source_kind
+  - transaction_datetime
+  - trial_balance_id
+  - service_date
+
+Supported fields for sorting:
+  - created_at - Same as `transaction_datetime`
+  - id
+  - internal_code
+  - source_id
+  - transaction_datetime
+  - service_date
+
+Example request:
+```
+  {
+    "filters": {
+      "and": [
+        {
+          "operator": "greater_than_or_equal",
+          "value": "2019-01-11t08:59:00Z",
+          "field": "transaction_datetime"
+        },
+        {
+          "operator": "equals",
+          "value": "123",
+          "field": "source_id"
+        },
+        {
+          "operator": "equals",
+          "value": "RESERVATION",
+          "field": "source_kind"
+        },
+        {
+          "or": [
+            {
+              "operator": "in",
+              "value": ["1", "2", "3"],
+              "field": "customer_id"
+            },
+            {
+              "operator": "equals",
+              "value": "9000",
+              "field": "internal_code"
+            }
+          ]
+        }
+      ]
+    },
+    "pageToken": null,
+    "limit": 10,
+    "sort": [
+      {
+        "field": "transaction_datetime",
+        "direction": "asc"
+      }
+    ]
+  }
+
+The API has certain constraints for filters so that the system is able to efficiently query the data. Filters must include on of the following:
+  - filter by 'id' with condition 'equals' or 'in'
+  - filter by both 'source_id' and 'source_kind'
+  - filter by both 'external_relation_id' and 'external_relation_kind'
+  - filter by transaction_datetime
+```
+
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+* OAuth Authentication (bearerAuth):
 
 ```python
 import cloudbeds_accounting
@@ -118,19 +282,17 @@ configuration = cloudbeds_accounting.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = cloudbeds_accounting.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with cloudbeds_accounting.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cloudbeds_accounting.TransactionsApi(api_client)
-    x_property_id = 56 # int | Property id
+    x_property_id = 56 # int | Unique identifier of the property. Required for all requests to scope data to a specific property. 
     list_transactions_request = cloudbeds_accounting.ListTransactionsRequest() # ListTransactionsRequest | 
 
     try:
+        # Search posted transactions
         api_response = api_instance.list_transactions(x_property_id, list_transactions_request)
         print("The response of TransactionsApi->list_transactions:\n")
         pprint(api_response)
@@ -145,7 +307,7 @@ with cloudbeds_accounting.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_property_id** | **int**| Property id | 
+ **x_property_id** | **int**| Unique identifier of the property. Required for all requests to scope data to a specific property.  | 
  **list_transactions_request** | [**ListTransactionsRequest**](ListTransactionsRequest.md)|  | 
 
 ### Return type

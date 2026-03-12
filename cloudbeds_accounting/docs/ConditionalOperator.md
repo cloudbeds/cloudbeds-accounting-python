@@ -3,31 +3,31 @@
 
 ## Enum
 
-* `GREATER_THAN_OR_EQUAL` (value: `'greater_than_or_equal'`)
+* `greater_than_or_equal` (value: `'greater_than_or_equal'`)
 
-* `GREATER_THAN` (value: `'greater_than'`)
+* `greater_than` (value: `'greater_than'`)
 
-* `LESS_THAN_OR_EQUAL` (value: `'less_than_or_equal'`)
+* `less_than_or_equal` (value: `'less_than_or_equal'`)
 
-* `LESS_THAN` (value: `'less_than'`)
+* `less_than` (value: `'less_than'`)
 
-* `EQUALS` (value: `'equals'`)
+* `equals` (value: `'equals'`)
 
-* `NOT_EQUALS` (value: `'not_equals'`)
+* `not_equals` (value: `'not_equals'`)
 
-* `IN` (value: `'in'`)
+* `in` (value: `'in'`)
 
-* `NOT_IN` (value: `'not_in'`)
+* `not_in` (value: `'not_in'`)
 
-* `CONTAINS` (value: `'contains'`)
+* `contains` (value: `'contains'`)
 
-* `NOT_CONTAINS` (value: `'not_contains'`)
+* `not_contains` (value: `'not_contains'`)
 
-* `IS_NULL` (value: `'is_null'`)
+* `is_null` (value: `'is_null'`)
 
-* `NOT_NULL` (value: `'not_null'`)
+* `not_null` (value: `'not_null'`)
 
-* `UNKNOWN_DEFAULT_OPEN_API` (value: `'unknown_default_open_api'`)
+* `&#39;unknown_default_open_api&#39;` (value: `'unknown_default_open_api'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

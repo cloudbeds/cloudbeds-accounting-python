@@ -1,5 +1,6 @@
 # TransactionItemGroup
 
+Category grouping for transaction item codes. Used to classify custom transaction codes and general ledger codes. - `items_services` — Products and services sold to guests (minibar, restaurant, spa, etc.). - `reservations` — Room rate charges and room revenue adjustments. - `taxes_fees` — Tax and fee line items applied to charges. - `payments` — Payment transactions (cash, card, bank transfer, etc.). - `accrual_accounting` — Accrual accounting entries for revenue recognition. - `custom_item` — Custom POS or manually created charge items. - `spaces` — Charges related to bookable spaces (meeting rooms, event venues, etc.). - `accounts_receivable_transfers` — Transfers to or from accounts receivable ledgers. - `deposit_transfers` — Transfers to or from the deposit ledger. 
 
 ## Enum
 
